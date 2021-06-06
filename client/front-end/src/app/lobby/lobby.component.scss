@@ -1,0 +1,5 @@
+.my_border{
+    &:focus{
+        border-bottom: #66BB6A solid 4px;
+    }
+}

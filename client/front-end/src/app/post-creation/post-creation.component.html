@@ -1,0 +1,32 @@
+<div class="pass_container">
+    <div class="mt-5 container">
+        <div class="card bg-dark py-2 px-5 min-h-50" style="position: relative; top: 5rem;">
+            <div class="card_body p-md-5 text-light ">
+                <div class="h4">
+                    Share this link to all who want to participate...
+                    
+                </div>
+                
+                <div class="container-fluid px-sm-5">
+                    <div class="d-flex mt-5 justify-content-center align-items-center">
+                        <div class="col-md-6 py-2 px-4" style="background-color: grey;">
+                            <span class="p-input-icon-right w-100">
+                                <input type="text" class="w-100" pInputText readonly [value]="url">
+                                <i class="pi pi-copy raised-click" ngxClipboard [cbContent]="url" (click)="copyToClipboard()" ></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="float-right"> 
+                    <button type="button" [routerLink]="['/profile']" class="btn btn-success">
+                        Back to <br>
+                        Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<p-toast></p-toast>
+

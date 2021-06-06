@@ -1,0 +1,34 @@
+<div class="mt-5 container">
+    <div class="card bg-dark py-2 px-5 min-h-50" style="position: relative; top: 5rem;">
+        
+        <div class="card_body p-md-5 text-light ">
+            <div class="float-right">
+                <!-- <button mat-mini-fab color="warn" (click)="onCancel()">
+                    <i class="pi-times"></i>
+                </button> -->
+            </div>
+            <div class="h4">
+                Email id of your account
+            </div>
+            <form [formGroup]="passwordForm">
+                <div class="container-fluid px-sm-5">
+                    <div class="row mt-5 justify-content-center">
+                        <div class="form-group col-md-5">
+                            <input formControlName="email" [class.is-invalid]="email.invalid && email.touched" type="text" class="form-control" placeholder="Email"> 
+                        </div>
+                    </div>
+                    <div *ngIf="email.invalid && email.touched" class="d-flex justify-content-center">
+                        <small class="text-danger" *ngIf="email.errors?.required">Email id required</small>
+                        <small class="text-danger" *ngIf="email.errors?.NotValidEmail">Email id doesn't exist</small>
+                    </div>
+                    
+                    <div class="float-right">
+                        <button pButton class="p-button-raised" (click)="sendMail()" label="Proceed"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<app-loader *ngIf="showLoader"></app-loader>
+<p-toast></p-toast>

@@ -1,0 +1,74 @@
+<app-set-player class="pass_container" *ngIf="canSetTitle" placeholder="Title" type="text" textOnButton="Set Title" (setEvent)="setTitle($event)">
+    <div class="heading">
+        Add a title to your quiz!!..
+    </div>
+    <div class="error">
+        Provide a title for quiz
+    </div>
+    <div class="input-label">
+        Quiz Title
+    </div>
+</app-set-player>
+
+
+
+<div class="container   p-sm-5 mt-5">
+    <div class=" question-bg p-5 mt-5">
+        <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <span class="p-float-label">
+                    <textarea pInputTextarea formControlName="question" [class.is-invalid]="question.invalid && question.touched" class="" rows="2" id="question" style="width: 100%;"></textarea>
+                    <label for="question">Your question goes here</label>
+                </span>
+                <small *ngIf="question.invalid && question.touched" class="text-danger">Oops!! Cannot be an empty question</small>
+            </div>
+
+            <div class="container">
+                <div class="container">
+                    <div class="row flex-sm-row flex-column justify-content-sm-around">
+                        <div formArrayName="options" class="form-group col-sm-6" *ngFor="let option of options.controls;let i=index;let temp=option as FormGroup">
+                            <div class="d-flex">
+                                <div class="p-inputgroup" [formGroupName]="i">
+                                    <span class="p-inputgroup-addon" style="padding: 10px;">
+                                        <input type="checkbox" [id]="i" type="checkbox" formControlName="check" class="k-input-checkbox" aria-label="Checkbox for following text input">
+                                        <label [for]="i" class="k-checkbox-label">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </span>
+                                    <input type="text" pInputText formControlName="opt" [class.is-invalid]="option.get('opt').invalid && option.get('opt').touched" [placeholder]="'option '+(i+1)">
+                                </div> 
+                                <button pButton icon="pi pi-trash" aria-label="Example icon button with a delete icon" class="remove-btn p-button-rounded p-button-danger" (click)="removeOption(i)" *ngIf="enableRmBtn" style="transform:translateX(5px)">
+                                </button>
+                                
+                            </div>
+                            
+                            <small *ngIf="option.get('opt').invalid && option.get('opt').touched" class="text-danger">Oops!! Cannot be an empty option</small>
+                        </div>
+                    </div>
+                    <small class="text-danger" *ngIf="questionForm.errors?.answersNotMade">Set Atleast One Answer to proceed further</small>
+                    <small class="text-danger" *ngIf="questionForm.errors?.optionsNotMade">Oops!! options can't be empty</small>
+                    <div class="d-flex justify-content-end form-group">
+                        <button type="button" pButton class="p-button-raised p-button-info" (click)='addOption()' [disabled]="optionsFull" [class.disabled]=optionsFull label="Add Option"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button pButton type="button" class="p-button-raised p-button-danger" label="Complete" [disabled]="!canComplete()" (click)="canSetPassword=true"></button>
+                <button type="submit" class="btn btn-success" [disabled]="!questionForm.valid">save & next</button>
+            </div>
+        </form>
+    </div> 
+</div> 
+
+<app-set-player class="pass_container" *ngIf="canSetPassword" type="password" textOnButton="Set Password" (setEvent)="complete($event)">
+    <div class="heading">
+        Wanna add password to restrict unknown access!!?
+    </div>
+    <div class="error">
+        Provide a valid 6 digit number
+    </div>
+    <div class="input-label">
+        Password
+    </div>
+</app-set-player>
+<app-loader *ngIf="showLoader"></app-loader>

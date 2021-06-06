@@ -1,0 +1,65 @@
+
+<div class="container p-0 bg-light min-vh-100 my-4" >
+
+    <header style="background-color: #acb7ae;" >
+        <div class="d-flex p-3 justify-content-end" >
+            <div class="d-flex">
+                <div class="form-group">
+                    <input type="text" class="form-control shadow-none my_border" [(ngModel)]="query" placeholder="Search by Quiz Id">
+                </div>
+                <div class="align-self-center" style="transform: translate(-1.8rem,-4px)">
+                    <i class="pi pi-search"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <section *ngIf="!query" class="bg-night"> <!-- Most Popular -->
+        <div class="h3 ml-3 text-light" style="color: #546E7A;">
+            Most Popular
+        </div>
+        <div class="" style="height: 90vh ;overflow-y: scroll;overflow-x: hidden;">
+            <div class="px-5 py-3 row flex-column flex-md-row" >
+                <div class="col-md-4 py-2" *ngFor="let quiz of details;let i=index ">
+                    <div class="card" style="border: none;">
+                        <div class="card-body py-5 text-center text-light text-truncate text-capitalize" style="font-size: large;" [ngStyle]="{'background-color': getBgColor(i)}">
+                            {{quiz.title}} 
+                        </div>
+                        <div class="card-footer" [ngStyle]="{'background-color': getShadeColor(i)}">
+                            <div class="row px-3 justify-content-between">
+                                <i *ngIf="quiz['password']" class="pi pi-lock align-self-center" style="color:red"></i>
+                                <i *ngIf="!quiz['password']" class="pi pi-lock-open align-self-center" style="color:green"></i>
+                                <button class="btn btn-dark" [routerLink]="['/play-quiz',quiz.id]" routerLinkActive="active" >Play</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section *ngIf="query" class="mt-2" > <!-- Search Results -->
+        <div class="h3 ml-3" style="color: #546E7A;">
+            Search Results
+        </div>
+        <div class="" style="height: 90vh ;overflow-y: scroll;">
+            <div class="px-5 py-3 row flex-column flex-md-row" style="overflow-x: hidden;" >
+                <div class="col-md-4 py-2" *ngFor="let quiz of (details | filterQuiz: query)">
+                    <div class="card shadow-lg outline-none border-none">
+                        <div class="card-body py-5 text-center text-light text-truncate text-capitalize" style="background-color: #66BB6A;font-size: large;">
+                            {{quiz.title}}
+                        </div>
+                        <div class="card-footer" style="background-color: #A5D6A7;">
+                            <div class="row px-3 justify-content-between">
+                                <i *ngIf="quiz['password']" class="pi pi-lock align-self-center">lock</i>
+                                <i *ngIf="!quiz['password']" class="pi pi-lock-open align-self-center">lock_open</i>
+                                <!-- <button mat-raised-button color="primary" [routerLink]="['/play-quiz',quiz.id]" routerLinkActive="active" >Play</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

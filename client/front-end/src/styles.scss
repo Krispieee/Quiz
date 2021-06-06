@@ -1,0 +1,199 @@
+/* You can add global styles to this file, and also import other style files */
+//My checkbox
+.k-input-checkbox{
+    display: none;
+}
+.checkmark{
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #9898a7ab; 
+    border-radius: 5px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.checkmark::after{
+    content: "";
+    position: absolute;
+    width: 1rem;
+    height: .5rem;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotateZ(-45deg);
+    border: .15rem solid white;
+    border-top: none;
+    border-right: none;
+    opacity: 0; 
+    
+}
+
+.k-input-checkbox:checked ~ .k-checkbox-label{
+    
+    .checkmark{
+        background-color: #3ab766;
+    }
+    .checkmark::after{
+        opacity: 1;
+    }
+} 
+
+.k-checkbox-label{
+    width: 100%;
+    height: 50%;
+}
+
+//RadioButton
+.k-input-radio{
+    display: none;
+}
+.circle{
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #9898a7ab; 
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+.circle::after{
+    content: "";
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #3ab766;
+    border-radius: 100%;
+    opacity: 0;  
+    
+}
+.circle::before{
+    content: "";
+    position: absolute;
+    width: 1.7rem;
+    height: 1.7rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: .2rem solid #3ab766;
+    border-radius: 100%;
+    opacity: 0;  
+    
+}
+
+.k-input-radio:checked ~ label{
+    
+    .circle{
+        background-color:transparent;
+        ;
+    }
+    .circle::after{
+        opacity: 1;
+    }
+    .circle::before{
+        opacity: 1;
+    }
+} 
+
+
+//Animations
+.raised-click{
+    &:active{
+        transform: translateY(3px);
+    }
+}
+
+
+//buttons
+
+.k-button-rounded{
+    &,&:active,&:focus{
+        border-radius: 50%;
+        border: none;
+        width: 3rem;
+        height: 3rem;
+        text-align: center;
+        background-color: #673ab7;
+        color: white;
+        outline: none;
+        &:disabled{
+            background-color:#6b7779 !important;
+            color: #92a5ac;
+        }
+        &:active{
+            transform: translateY(3px);
+        }
+    }
+    
+}
+.k-button-raised{
+    box-shadow: 1px 4px #424d4a;
+}
+
+.btn{
+    cursor: pointer;
+    transition: .2s all;
+    &:hover{
+        transform: translateY(-3px);
+    }
+    &:active:focus{
+        transform: translateY(-1px);
+        background-color: inherit;
+        border:0;
+        outline: 0;
+    }
+    &:focus{
+        border: none;
+    }
+}
+
+.pass_container{
+    height: 100vh;
+    width: 100%;
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(185, 176, 176, 0.623);
+}
+.bg-sand{
+    background-color: #e1b382;
+}
+.bg-night{
+    background-color: #2d545e;
+}
+
+html, body { height: 100%; }
+body { 
+    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+
+    
+}
+*{
+    &::-webkit-scrollbar {
+        width: 2px;
+      }
+      
+    /* Track */
+    &::-webkit-scrollbar-track {
+    background: transparent; 
+    }
+    
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+    background: #888; 
+    }
+    
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+    }
+}
+
+
+@import "variables";
+@import "reset";

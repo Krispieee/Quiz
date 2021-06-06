@@ -1,0 +1,47 @@
+<div class="container p-0 mt-4 bg-light" >
+    <div class="bg-dark px-5 py-2">
+        <div class="d-flex justify-content-between">
+            <div class="text-light d-flex align-items-center">
+                Hey&nbsp;
+                <div class="brand align-self-center bg-night p-1 rounded" >
+                    <span class="text-capitalize">{{username}}</span>
+                </div>
+                &nbsp;!!!
+            </div>
+            <div class="align-self-center">
+                <button pButton class="p-button-raised p-button-secondary" [routerLink]="['/pre-creation']" routerLinkActive="active" label="Create"></button>
+            </div>
+        </div>
+    </div>
+    <section class="bg-night"> <!-- Most Popular -->
+        <div class="" style="height: 90vh ;overflow-y: scroll;overflow-x: hidden;">
+            <div class="px-5 py-3 row flex-column flex-md-row" >
+                <div class="col-md-4 py-2" *ngFor="let quiz of profileDetails;let i=index ">
+                    <div class="card" style="border: none;">
+                        
+                        <div class="card-body" style="font-size: large;" [ngStyle]="{'background-color': getBgColor(i)}">
+                            <div class="float-right">
+                                <button class="p-button-rounded p-button-raised p-button-help" pButton [routerLink]="['/post-creation/'+quiz.id]" routerLinkActive="active" icon="pi pi-share-alt">
+                                </button> 
+                            </div>    
+                            <div class="py-4 text-center text-light text-truncate text-capitalize">
+                                {{quiz.title}}
+                            </div>
+                            
+                        </div>
+                        <div class="card-footer" [ngStyle]="{'background-color': getShadeColor(i)}">
+                            <div class="row px-3 justify-content-between">
+                                <button class="p-button-rounded p-button-raised p-button-warning" pButton [routerLink]="['/settings',quiz.id]" routerLinkActive="router-link-active" icon="pi pi-cog">
+                                </button>
+                                
+                                <button class="p-button-rounded p-button-raised" pButton [routerLink]="['/results',quiz.id]" routerLinkActive="active" icon="pi pi-eye">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<p-toast></p-toast>

@@ -1,0 +1,93 @@
+<app-set-player class="pass_container" *ngIf="showPassword" type="password" textOnButton="Continue" hideImFine="true" (setEvent)="checkPassword($event)" style="z-index:20;">
+    <div class="heading">
+        This Quiz is password protect kindly give the password to Proceed futher!!
+    </div>
+    <div class="error">
+        Provide a valid 6 digit number
+    </div>
+    <div class="input-label">
+        Password
+    </div>
+</app-set-player>
+<app-set-player class="pass_container" *ngIf="!nameEntered" type="text" textOnButton="Continue" hideImFine="true" (setEvent)="setName($event)" style="z-index: 10;">
+    <div class="heading">
+        Participant Name!!..
+    </div>
+    <div class="error">
+        Name is required
+    </div>
+    <div class="input-label">
+        Player Name
+    </div>
+</app-set-player>
+
+<div class="container   p-sm-5 mt-5" style="border-radius: 10px;">
+    <div class=" question-bg p-5">
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+            <div class="" formArrayName="questions">
+                <div class=""  *ngFor="let ques of pageOfItem;let j=index" [formGroupName]="currentPage">
+                    <div class="" >
+                        <div class="form-group" >
+                            <p class="text-light" style="white-space: pre-line;">
+                                {{ques.question}}
+                            </p>
+                        </div>
+                        <div class="container">
+                            <div class="container">
+                                <div class="row flex-sm-row flex-column justify-content-sm-around" *ngIf="!isRadio(currentPage)">
+                                    <div class="form-group col-sm-6 text-light" *ngFor="let opt of ques.option;let i=index" formArrayName="proposedAnswer">
+                                        <input type="checkbox" [id]="i" type="checkbox" [formControlName]="i" class="k-input-checkbox" aria-label="Checkbox for following text input">
+                                        <label [for]="i" class="k-checkbox-label ml-3">
+                                            <span class="checkmark"></span>
+                                            <span class="answer-text">
+                                                {{opt}}
+                                            </span>
+                                        </label>
+                                        
+                                        <!-- <mat-checkbox class="" [formControlName]="i">
+                                            {{opt}}
+                                        </mat-checkbox> -->
+                                    </div>
+                                </div>
+                                <div class="row flex-sm-row flex-column justify-content-sm-around" *ngIf="isRadio(currentPage)">
+                                    <div class="form-group col-sm-6 text-light" *ngFor="let opt of ques.option;let i=index">
+                                        <input type="radio" [id]="i" name="proposedAnswer" [value]="opt" class="k-input-radio" formControlName="proposedAnswer">
+                                        <label [for]="i" >
+                                            <span class="circle"></span>
+                                            <span class="answer-text">{{opt}}</span>
+                                        </label>
+                                    </div>
+                                    <!-- <mat-radio-group class="row flex-sm-row flex-column justify-content-sm-between text-light" formControlName="proposedAnswer">
+                                        <mat-radio-button class="col-sm-6" [value]="opt" *ngFor="let opt of ques.option;let i=index">
+                                            {{opt}}
+                                        </mat-radio-button>
+                                    </mat-radio-group> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                    </div>
+                
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center center pb-0 pt-3">
+                    <jw-pagination [items]="questions" (changePage)="onChangePage($event)"></jw-pagination>
+                </div>
+                <div class="d-flex justify-content-end form-group">
+                    <button class="btn btn-success" type="submit">    
+                        <div class="d-flex">
+                            <div class="">
+                                Submit
+                            </div>&nbsp;
+                            <div class=""  style="transform: translateY(4px);">
+                                <i class="pi pi-upload"></i>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+        </form>
+    </div>
+</div>
+<app-loader *ngIf="showLoader"></app-loader>
+<p-toast></p-toast>

@@ -1,0 +1,38 @@
+<div class="mt-5 container">
+    <div class="card bg-dark py-2 px-5 min-h-50" style="position: relative; top: 5rem;">
+        <div class="card_body p-md-5 text-light ">
+            <div class="h4">
+                
+                <ng-content select=".heading"></ng-content>
+                
+            </div>
+            <form action="" [formGroup]="form" novalidate>
+                <div class="container-fluid px-sm-5">
+                    <div class="row mt-5 justify-content-center">
+                        <div class="form-group p-inputgroup col-md-6">
+                            <span class="p-float-label">
+                                <input *ngIf="!isPassoword()" id="fields" formControlName="field" name="field" pInputText [type]="type" autocomplete="off"> 
+                                <input *ngIf="isPassoword()" NumbersOnly minlength="6" maxlength="6" id="fields" formControlName="field" name="field" pInputText [type]="type" autocomplete="off"> 
+                                <label for="fields">
+                                    <ng-content select=".input-label"></ng-content>
+                                </label>
+                            </span>
+                            <button type="submit" pButton class="p-button-raised p-button-secondary" [disabled]="field.invalid" (click)="setField()" [label]="textOnButton" style="width: 50%;"></button>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center" >
+                        <small class="text-danger" [class.d-none]="field.valid || field.untouched" >
+                            <ng-content select=".error"></ng-content>
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group float-right" *ngIf="!hideImFine">
+                    <button class="btn btn-danger" (click)="setField()">
+                        I'm fine
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

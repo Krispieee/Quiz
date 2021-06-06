@@ -1,0 +1,25 @@
+<div class="mt-5 container">
+    <div class="card bg-dark py-2 px-5 min-h-50" style="position: relative; top: 5rem;">
+        <div class="card_body p-md-5 text-light ">
+            <div class="h4">
+                Add a title to your quiz!!..
+            </div>
+            <form action="" #form="ngForm">
+                <div class="container-fluid px-sm-5">
+                    <div class="row mt-5 justify-content-center">
+                        <div class="form-group p-inputgroup col-md-5">
+                            <span class="p-float-label">
+                                <input #title="ngModel" id="title" type="text" [value]="quizTitle" [(ngModel)]="quizTitle" name="quiztitle" pInputText required> 
+                                <label for="title">Title for Quiz</label>
+                            </span>
+                            <button pButton class="p-button-raised p-button-secondary" [disabled]="form.form.invalid" (click)="setTitle()" label="Set Title" style="min-width: fit-content;" autocomplete="off"></button>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <small class="text-danger" [class.d-none]="title.valid || title.untouched" >Provide a title for quiz</small>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

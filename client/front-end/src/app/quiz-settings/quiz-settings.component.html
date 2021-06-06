@@ -1,0 +1,100 @@
+<!-- <app-set-player class="pass_container" *ngIf="canSetTitle" type="text" textOnButton="Set Title" hideImFine="true" [preset]="title" (setEvent)="setTitle($event)">
+    <div class="heading">
+        Add a title to your quiz!!..
+    </div>
+    <div class="error">
+        Provide a title for quiz
+    </div>
+    <div class="input-label">
+        Quiz Title
+    </div>
+</app-set-player> -->
+<div class="container p-sm-5">
+    <div *ngIf="!this.questions[this.currentQuestion]?.toBeDeleted" class="btn-del-ques">
+        <button pButton (click)="deleteQuestion()" icon="pi pi-trash"></button>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="">
+            <button pButton class="p-button-rounded p-button-raised p-button-help" (click)="previousQuestion()" [disabled]="disablePreviousButton" icon="pi pi-chevron-left">
+            </button>
+        </div>
+        <div class="container question-bg p-5 mt-5 d-flex align-items-start">
+            <div *ngIf="this.questions[this.currentQuestion]?.toBeDeleted" class="hider">
+                <div class="hider-icon">
+                    <i (click)="undoDeleteQuestion()" class="pi pi-undo"></i>
+                </div>
+            </div>
+            <div class="w-100">
+                <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+                    <div class="">
+                        <div class="form-group">
+                            <span class="p-float-label">
+                                <textarea id="question" pInputTextarea formControlName="question"  [class.is-invalid]="question.invalid && question.touched" rows="2" style="width: 100%;"></textarea>
+                                <label for="question">Your question goes here</label>
+                            </span>
+                            <small *ngIf="question.invalid && question.touched" class="text-danger">Oops!! Cannot be an empty question</small>
+                        </div>
+                    </div>
+                    
+                    <div class="container">
+                        <div class="container">
+                            <div class="row flex-sm-row flex-column justify-content-sm-around">
+                                <div formArrayName="options" class="form-group col-sm-6" *ngFor="let option of options.controls;let i=index;let temp=option as FormGroup">
+                                    <div class="d-flex">
+                                        <div class="p-inputgroup mb-3" [formGroupName]="i">
+                                            <span class="p-inputgroup-addon" style="padding: 10px;">
+                                                <input type="checkbox" [id]="i" type="checkbox" formControlName="check" class="k-input-checkbox" aria-label="Checkbox for following text input">
+                                                <label [for]="i" class="k-checkbox-label">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </span>
+                                            <input type="text" pInputText formControlName="opt" [class.is-invalid]="option.get('opt').invalid && option.get('opt').touched" [placeholder]="'option '+(i+1)">
+                                        </div>
+                                        <button pButton class="p-button-rounded p-button-raised p-button-danger" aria-label="Example icon button with a delete icon" (click)="removeOption(i)" *ngIf="enableRmBtn" style="transform:translateX(5px)" icon="pi pi-trash">
+                                        </button>
+                                        
+                                    </div>
+                                    
+                                    <small *ngIf="option.get('opt').invalid && option.get('opt').touched" class="text-danger">Oops!! Cannot be an empty option</small>
+                                </div>
+                            </div>
+                            <small class="text-danger" *ngIf="questionForm.errors">Set Atleast One Answer to proceed further</small>
+                            <div class="d-flex justify-content-end form-group">
+                                <button type="button" pButton class="p-button-rounded p-button-raised" (click)='addOption()' [disabled]="optionsFull" [class.disabled]="optionsFull" label="Add Option"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <input type="button" *ngIf="questionForm.invalid" class="btn btn-danger" value="Complete" [disabled]="!canComplete()" (click)="confirm($event)">
+                        <input type="button" *ngIf="questionForm.valid" class="btn btn-danger" value="Complete" [disabled]="!canComplete()" (click)="canSetPassword=true">
+                        <div class="">
+                            <input type="text" readonly class="k-button-rounded" style="background-color: #8590aa;" [value]="currentQuestion+1">
+                        </div>
+                        <button type="submit" class="btn btn-success" [disabled]="!isFormValid()">New question</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="">
+            <button pButton class="p-button-rounded p-button-raised p-button-help" (click)="nextQuestion()" [disabled]="disableNextButton" icon="pi pi-chevron-right">
+            </button>
+        </div>
+    </div>
+    
+</div> 
+
+<p-confirmPopup></p-confirmPopup>
+
+<app-set-player class="pass_container" *ngIf="canSetPassword" type="password" textOnButton="Set Password" (setEvent)="complete($event)">
+    <div class="heading">
+        Wanna add password to restrict unknown access!!?
+    </div>
+    <div class="error">
+        Provide a valid 6 digit number
+    </div>
+    <div class="input-label">
+        Password
+    </div>
+</app-set-player>
+<app-loader *ngIf="showLoader"></app-loader>
+<p-toast></p-toast>

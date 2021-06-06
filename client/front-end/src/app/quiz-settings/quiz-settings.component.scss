@@ -1,0 +1,78 @@
+.question-bg{
+    background-image: linear-gradient(to right top,#12343bc5 ,#2d545e93),url(../../assets/images/settings-bg.jpg);
+    background-size: cover;
+    background-position: bottom;
+    position: relative;
+
+    &::after{
+        
+    }
+}
+.remove-btn{
+    
+    border: none;
+    font-weight: 700;
+    outline:none;
+    
+    
+    &:hover{
+        transform: translateY(-2px);
+    }
+    &:active{
+        transform: translateY(-1px);
+    }
+}
+
+.pass_container{
+    height: 100vh;
+    width: 100%;
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(185, 176, 176, 0.623);
+}
+
+.arrow-right{
+    transform: translateX(-1.6rem);
+}
+.arrow-left{
+    transform: translateX(1.6rem);
+}
+
+.btn-del-ques{
+    position: relative;
+    top: 21px;
+    right: 70px;
+    float: right;
+    z-index: 1;
+}
+
+.hider{
+    content: "";
+    position: absolute; /* could also be absolute */ 
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    background-color: #fdfdfdb8;;
+    &-icon{
+        position: relative;
+        top: 50%;
+        left:50%;
+        &>i{
+            font-size: 2rem;
+            position: relative;
+            animation:  .2s all;
+            cursor: pointer;
+            &:hover{
+                transform: translateY(-2px);
+            }
+            &:active{
+                transform: translateY(2px);
+            }
+        }
+    }
+
+}

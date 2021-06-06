@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="container">
+        <div class="bg-video">
+            <video class="bg-video__content" autoplay muted loop >
+                <source src="../../assets/images/results.mp4" type="video/mp4">
+                <source src="../../assets/images/results.webm" type="video/webm">
+                Your browser is not supported!
+            </video>
+            <div class="bg-video__gradient">
+            </div>
+        </div>
+        <div class="d-flex justify-content-center pt-3" style="opacity: 0.75;">
+          <p-table #dt [value]="players" [columns]="columns" scrollHeight="25rem" [scrollable]="true" sortMode="multiple">
+            <ng-template pTemplate="header">
+              <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                  {{col.col}}
+                  <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+              </tr>
+              <tr>
+                <th [attr.colspan]="columns.length">
+                    <p-columnFilter type="text" field="name" placeholder="Search"></p-columnFilter>
+                </th>
+            </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-player style="height: 30rem;overflow-y: scroll ;">
+              <tr>
+                <td>{{player.name}}</td>
+                <td>{{player.score}}</td>
+                <td>{{player.no_of_ques}}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+    </div>
+    <div class="mx-md-5 px-md-5">
+      <div class="mx-md-5 px-md-5">
+        <div class="mx-md-5 px-md-5">
+          <div class="mx-md-3 px-md-3">
+            <div class="px-5 mt-3">
+              <div class="float-left" *ngIf="loggedIn()">
+                <div class="dropdown">
+                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Download report
+                  <i class="pi pi-download"></i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button class="dropdown-item" (click)="exportExcel()">Download Excel</button>
+                    <button class="dropdown-item" (click)="dt.exportCSV()">Download CSV</button>
+                  </div>
+                </div>
+              </div>
+              <div class="float-right">
+                <button *ngIf="!loggedIn()" [routerLink]="['/pre-creation']" routerLinkActive="router-link-active" pButton class="p-button-raised" label="Create your own Quiz"></button>
+                <button *ngIf="loggedIn()" class="btn btn-dark" [routerLink]="['/profile']" routerLinkActive="router-link-active">
+                  Profile
+                  <i class="pi pi-caret-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
