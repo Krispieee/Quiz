@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms'
 import { CustomValidators } from '../shared/customValidators/custom.validator';
 import { CreationService } from '../services/creation.service';
-import {Router,ActivatedRoute,ParamMap} from '@angular/router'
+import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 import { identifierModuleUrl } from '@angular/compiler';
 import { MessageService } from 'primeng/api';
 
@@ -12,124 +12,126 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./pre-creation.component.scss']
 })
 export class PreCreationComponent implements OnInit {
-  testAnswers:string[]=[];
-  questionForm : FormGroup;
-  optionsFull:boolean;
-  enableRmBtn:boolean;
-  canSetPassword:boolean;
-  canSetTitle:boolean=true;
-  something:string;
-  questionSet={
-    title:'',
-    creater_email:'',
-    questions:[]
+  testAnswers: string[] = [];
+  questionForm: FormGroup;
+  optionsFull: boolean;
+  enableRmBtn: boolean;
+  canSetPassword: boolean;
+  canSetTitle: boolean = true;
+  something: string;
+  questionSet = {
+    title: '',
+    creater_email: '',
+    questions: []
   };
-  showLoader:boolean;
-  constructor( public _formBuilder:FormBuilder,public _creationService:CreationService,public router:Router,public _cdr: ChangeDetectorRef,public _messages:MessageService) { }
+  showLoader: boolean;
+  constructor(public _formBuilder: FormBuilder, public _creationService: CreationService, public router: Router, public _cdr: ChangeDetectorRef, public _messages: MessageService) { }
 
   ngOnInit(): void {
-    
+
     this.questionForm = this._formBuilder.group({
-      question : ['',[Validators.required]],
-      options : this._formBuilder.array([
+      question: ['', [Validators.required]],
+      options: this._formBuilder.array([
         this._formBuilder.group({
-          check:[{value:false,disabled:false}],
-          opt:[{value:'',disabled:false},[Validators.required]]
-          }),
-          this._formBuilder.group({
-            check:[{value:false,disabled:false}],
-            opt:[{value:'',disabled:false},[Validators.required]]
-            })
+          check: [{ value: false, disabled: false }],
+          opt: [{ value: '', disabled: false }, [Validators.required]]
+        }),
+        this._formBuilder.group({
+          check: [{ value: false, disabled: false }],
+          opt: [{ value: '', disabled: false }, [Validators.required]]
+        })
       ]),
-    },{validators:[CustomValidators.AnswerValidator,CustomValidators.OptionValidator]})
+    }, { validators: [CustomValidators.AnswerValidator, CustomValidators.OptionValidator] })
     console.log(this.questionForm)
   }
 
-  get options(){
+  get options() {
     return this.questionForm.get('options') as FormArray
   }
-  get question(){
-    return this.questionForm.get('question') 
+  get question() {
+    return this.questionForm.get('question')
   }
 
-  createOption(){
-    return  this._formBuilder.group({
-      check:[{value:false,disabled:false}],
-      opt:[{value:'',disabled:false},[Validators.required]]
-      })
+  createOption() {
+    return this._formBuilder.group({
+      check: [{ value: false, disabled: false }],
+      opt: [{ value: '', disabled: false }, [Validators.required]]
+    })
   }
-  
-  setTitle(value){
-    this.questionSet.title=value
-    this.canSetTitle=false
+
+  setTitle(value) {
+    this.questionSet.title = value
+    this.canSetTitle = false
   }
-  addOption(){
+  addOption() {
     this.options.push(this.createOption())
-    if(this.options.length>2){
-      this.enableRmBtn=true
+    if (this.options.length > 2) {
+      this.enableRmBtn = true
     }
-    if (this.options.length == 4){  
-      this.optionsFull=true
+    if (this.options.length == 4) {
+      this.optionsFull = true
     }
   }
-  removeOption(index){
+  removeOption(index) {
     this.options.removeAt(index)
-    if(this.options.length == 2){
-      this.enableRmBtn=false
+    if (this.options.length == 2) {
+      this.enableRmBtn = false
     }
-    if(this.options.length < 4){
-      this.optionsFull=false
+    if (this.options.length < 4) {
+      this.optionsFull = false
     }
   }
-  onSubmit(){
-    let questionData={
-      question:"",
-      options:[],
-      answers:[]
+  onSubmit() {
+    let questionData = {
+      question: "",
+      options: [],
+      answers: []
     }
-    questionData.question=this.questionForm.get('question').value
-    
-    questionData.answers=[]
-    questionData.options=[]
-    for(let group of this.options.controls){
+    questionData.question = this.questionForm.get('question').value
+
+    questionData.answers = []
+    questionData.options = []
+    for (let group of this.options.controls) {
       questionData.options.push(group.get('opt').value)
-      if(!!group.get('check').value){
+      if (!!group.get('check').value) {
         questionData.answers.push(group.get('opt').value)
       }
     }
-    
+
     this.questionSet.questions.push(questionData)
-    this.questionSet['creater_email']=localStorage.getItem('creater_email')
+    this.questionSet['creater_email'] = sessionStorage.getItem('creater_email')
     this.questionForm.reset()
     console.log(this.questionSet)
   }
-  canComplete(){
-    return this.questionSet.questions.length>=1 && this.questionForm.valid
+  canComplete() {
+    return this.questionSet.questions.length >= 1 && this.questionForm.valid
   }
-  complete(password?:string){
+  complete(password?: string) {
     this.showLoader = true
     this.onSubmit()
-    let data={
-      questionSet:this.questionSet,
-      password:password,
-      creater_email:localStorage.getItem('creater_email')
-    }
-    console.log(data)
-    
-    
-    this._creationService.postQuestionSet(data).subscribe((res)=>{
+    // let data = {
+    //   questionSet: this.questionSet,
+    //   password: password,
+    //   creater_email: sessionStorage.getItem('creater_email')
+    // }
+
+    this.questionSet['password'] = password;
+    // console.log(data)
+
+
+    this._creationService.postQuestionSet(this.questionSet).subscribe((res) => {
       this.showLoader = false
-      if(res['message']==='success'){
-        let id=res['data'].id
+      if (res['message'] === 'success') {
+        let id = res['data'].id
         console.log(id)
-        this.router.navigate(['post-creation',id,password])              
+        this.router.navigate(['post-creation', id, password])
       }
-        
+
     },
-    err=>{
-      this._messages.add({severity:"error",summary:"Something went wrong"})
-    })
-    
+      err => {
+        this._messages.add({ severity: "error", summary: "Something went wrong" })
+      })
+
   }
-  
+
 }

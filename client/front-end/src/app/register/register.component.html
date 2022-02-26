@@ -7,59 +7,70 @@
                         Sign Up
                     </h5>
                     <form [formGroup]="registerForm" class="px-md-5" (ngSubmit)="onSubmit()" novalidate>
-                        <div class="form-group">
-                            <span class="p-float-label">
-                                <input type="text" pInputText class="w-100" (change)="test()" formControlName="username" [class.is-invalid]="username.invalid && username.touched" name="username" id="username">
-                                <label for="username">Username</label>
-                            </span>
-                            <small class="text-danger" *ngIf="username.invalid && username.touched">username is required</small>
-                        </div>
-                        <div class="form-group">
-                            <span class="p-input-icon-right w-100">
+                        <div class="">
+                            <div class="form-group text-center">
+                                <img [src]="profilePicPath" class="rounded-circle profile_image" alt="profile picture">
+                                
+                            </div>
+                            <div class="form-group">
                                 <span class="p-float-label">
-                                    <input type="text" id="email" (change)="test()" pInputText autocomplete="off" formControlName="email" class="w-100"  [class.is-invalid]="email.invalid && email.touched" name="email">
-                                    <label for="email">An Unique Email Id</label>
+                                    <input type="text" pInputText class="w-100" (change)="test()" formControlName="username" [class.is-invalid]="username.invalid && username.touched" name="username" id="username">
+                                    <label for="username">Username</label>
                                 </span>
-                                <ng-container *ngIf="email.touched">
-                                    <i *ngIf="email.pending" class="pi pi-spin pi-spinner"></i> 
-                                    <i *ngIf="email.valid" class="pi pi-check"></i> 
-                                </ng-container>
-
-                            </span>
-                            <div class="" *ngIf="email.invalid && email.touched">
-                                <small class="text-danger" *ngIf="email.errors?.required" >email is required</small>
-                                <small class="text-danger" *ngIf="email.errors?.email" >Provide a valid Email Id</small>
-                                <!-- <small class="text-danger" *ngIf="email.errors?.forbiddenEmail" >Email ID is already taken</small> -->
-                                <small class="text-danger" *ngIf="email.errors?.EmailTaken" >Email ID is already taken</small>
+                                <small class="text-danger" *ngIf="username.invalid && username.touched">username is required</small>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <span class="p-input-icon-right w-100">
+                            <div class="form-group">
+                                <span class="p-input-icon-right w-100">
+                                    <span class="p-float-label">
+                                        <input type="text" id="email" (change)="test()" pInputText autocomplete="off" formControlName="email" class="w-100"  [class.is-invalid]="email.invalid && email.touched" name="email">
+                                        <label for="email">An Unique Email Id</label>
+                                    </span>
+                                    <ng-container *ngIf="email.touched">
+                                        <i *ngIf="email.pending" class="pi pi-spin pi-spinner"></i> 
+                                        <i *ngIf="email.valid" class="pi pi-check"></i> 
+                                    </ng-container>
+    
+                                </span>
+                                <div class="" *ngIf="email.invalid && email.touched">
+                                    <small class="text-danger" *ngIf="email.errors?.required" >email is required</small>
+                                    <small class="text-danger" *ngIf="email.errors?.email" >Provide a valid Email Id</small>
+                                    <!-- <small class="text-danger" *ngIf="email.errors?.forbiddenEmail" >Email ID is already taken</small> -->
+                                    <small class="text-danger" *ngIf="email.errors?.EmailTaken" >Email ID is already taken</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span class="p-input-icon-right w-100">
+                                    <span class="p-float-label">
+                                        <input type="password" pPassword [showPassword]="passwordVisible" id="password" formControlName="password" promptLabel="Have a strong password" name="password" [class.is-invalid]="password.invalid && password.touched" [style]="{'width':'100%'}">
+                                        <label for="password">Password</label>
+                                    </span>
+                                    <i (click)="togglePasswordVisibility()" [ngClass]="{'pi pi-eye': !passwordVisible,'pi pi-eye-slash':'passwordVisible'}"></i>
+                                </span>
+                                <div class="" *ngIf="password.invalid && password.touched">
+                                    <small class="text-danger" *ngIf="password.errors?.required" >password is required</small>
+                                    <small class="text-danger" *ngIf="password.errors?.minlength" >Atleast a minimum of 7 charecters is required</small>
+                                    <small class="text-danger" *ngIf="password.errors?.maxlength" >Maximum of 16 charecters is allowed</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <span class="p-float-label">
-                                    <input type="password" pPassword [showPassword]="passwordVisible" id="password" formControlName="password" promptLabel="Have a strong password" name="password" [class.is-invalid]="password.invalid && password.touched" [style]="{'width':'100%'}">
-                                    <label for="password">Password</label>
+                                    <input type="password" pPassword [feedback]="false" [showPassword]="passwordVisible" formControlName="confirm_password" id="confirm_password" name="confirm_password" [class.is-invalid]="registerForm.errors?.misMatch" [class.is-invalid]="confirm_password.invalid && confirm_password.touched" [style]="{'width':'100%'}">
+                                    <label for="confirm_password">Confirm Password</label>
                                 </span>
-                                <i (click)="togglePasswordVisibility()" [ngClass]="{'pi pi-eye': !passwordVisible,'pi pi-eye-slash':'passwordVisible'}"></i>
-                            </span>
-                            <div class="" *ngIf="password.invalid && password.touched">
-                                <small class="text-danger" *ngIf="password.errors?.required" >password is required</small>
-                                <small class="text-danger" *ngIf="password.errors?.minlength" >Atleast a minimum of 7 charecters is required</small>
-                                <small class="text-danger" *ngIf="password.errors?.maxlength" >Maximum of 16 charecters is allowed</small>
+                                <div class="" *ngIf="confirm_password.touched">
+                                    <small class="text-danger" *ngIf="registerForm.errors?.misMatch">Passwords do not match</small>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <span class="p-float-label">
-                                <input type="password" pPassword [feedback]="false" [showPassword]="passwordVisible" formControlName="confirm_password" id="confirm_password" name="confirm_password" [class.is-invalid]="registerForm.errors?.misMatch" [class.is-invalid]="confirm_password.invalid && confirm_password.touched" [style]="{'width':'100%'}">
-                                <label for="confirm_password">Confirm Password</label>
-                            </span>
-                            <div class="" *ngIf="confirm_password.touched">
-                                <small class="text-danger" *ngIf="registerForm.errors?.misMatch">Passwords do not match</small>
+                            <div class="form-group">
+                                <p-fileUpload name="myfile[]" customUpload="true" [auto] = "true" [multiple]="false" placeHolder = "Choose a profile picture"
+                                        accept="image/*" maxFileSize="10000000" (uploadHandler)="imageUpload($event)" [chooseLabel]="'Choose a profile picture'">
+                                </p-fileUpload>
                             </div>
-                        </div>
-
-                        <div class="container">
-                            <button type="submit" pButton class="float-right p-button-raised p-button-secondary" label="Sign Up" icon="pi pi-sign-in" iconPos="right" [disabled]="registerForm.invalid" [ngClass]="{disabled: registerForm.invalid}">
-                            </button>
+    
+                            <div class="container">
+                                <button type="submit" pButton class="float-right p-button-raised p-button-secondary" label="Sign Up" icon="pi pi-sign-in" iconPos="right" [disabled]="registerForm.invalid" [ngClass]="{disabled: registerForm.invalid}">
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>

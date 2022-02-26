@@ -5,6 +5,9 @@
     <div class="error">
         Provide a valid 6 digit number
     </div>
+    <div class="parent-error">
+        {{errorMessage}}
+    </div>
     <div class="input-label">
         Password
     </div>
@@ -35,12 +38,12 @@
                         <div class="container">
                             <div class="container">
                                 <div class="row flex-sm-row flex-column justify-content-sm-around" *ngIf="!isRadio(currentPage)">
-                                    <div class="form-group col-sm-6 text-light" *ngFor="let opt of ques.option;let i=index" formArrayName="proposedAnswer">
+                                    <div class="form-group col-sm-6 text-light" *ngFor="let opt of ques.options;let i=index" formArrayName="proposedAnswer">
                                         <input type="checkbox" [id]="i" type="checkbox" [formControlName]="i" class="k-input-checkbox" aria-label="Checkbox for following text input">
                                         <label [for]="i" class="k-checkbox-label ml-3">
                                             <span class="checkmark"></span>
                                             <span class="answer-text">
-                                                {{opt}}
+                                                {{opt.option}}
                                             </span>
                                         </label>
                                         
@@ -50,11 +53,11 @@
                                     </div>
                                 </div>
                                 <div class="row flex-sm-row flex-column justify-content-sm-around" *ngIf="isRadio(currentPage)">
-                                    <div class="form-group col-sm-6 text-light" *ngFor="let opt of ques.option;let i=index">
+                                    <div class="form-group col-sm-6 text-light" *ngFor="let opt of ques.options;let i=index">
                                         <input type="radio" [id]="i" name="proposedAnswer" [value]="opt" class="k-input-radio" formControlName="proposedAnswer">
                                         <label [for]="i" >
                                             <span class="circle"></span>
-                                            <span class="answer-text">{{opt}}</span>
+                                            <span class="answer-text">{{opt.option}}</span>
                                         </label>
                                     </div>
                                     <!-- <mat-radio-group class="row flex-sm-row flex-column justify-content-sm-between text-light" formControlName="proposedAnswer">

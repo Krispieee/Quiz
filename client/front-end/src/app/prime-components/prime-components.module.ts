@@ -14,6 +14,11 @@ import {ToastModule} from 'primeng/toast';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {FileUploadModule} from 'primeng/fileupload';
+import {SpeedDialModule} from 'primeng/speeddial';
+
+
 
 @NgModule({
   declarations: [],
@@ -31,7 +36,9 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
     ToastModule,
     MessagesModule,
     MessageModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    ConfirmDialogModule,
+    SpeedDialModule
   ],
   exports :[
     ButtonModule,
@@ -46,7 +53,10 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
     ToastModule,
     MessagesModule,
     MessageModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    ConfirmDialogModule,
+    FileUploadModule,
+    SpeedDialModule
   ]
 })
 export class PrimeComponentsModule { }

@@ -28,8 +28,8 @@
                         </div>
                         <div class="card-footer" [ngStyle]="{'background-color': getShadeColor(i)}">
                             <div class="row px-3 justify-content-between">
-                                <i *ngIf="quiz['password']" class="pi pi-lock align-self-center" style="color:red"></i>
-                                <i *ngIf="!quiz['password']" class="pi pi-lock-open align-self-center" style="color:green"></i>
+                                <i *ngIf="quiz['passcode']" class="pi pi-lock align-self-center" style="color:red"></i>
+                                <i *ngIf="!quiz['passcode']" class="pi pi-lock-open align-self-center" style="color:green"></i>
                                 <button class="btn btn-dark" [routerLink]="['/play-quiz',quiz.id]" routerLinkActive="active" >Play</button>
                             </div>
                         </div>
@@ -52,9 +52,9 @@
                         </div>
                         <div class="card-footer" style="background-color: #A5D6A7;">
                             <div class="row px-3 justify-content-between">
-                                <i *ngIf="quiz['password']" class="pi pi-lock align-self-center">lock</i>
-                                <i *ngIf="!quiz['password']" class="pi pi-lock-open align-self-center">lock_open</i>
-                                <!-- <button mat-raised-button color="primary" [routerLink]="['/play-quiz',quiz.id]" routerLinkActive="active" >Play</button> -->
+                                <i *ngIf="quiz['passcode']" class="pi pi-lock align-self-center"></i>
+                                <i *ngIf="!quiz['passcode']" class="pi pi-lock-open align-self-center"></i>
+                                <button class="btn btn-dark" [routerLink]="['/play-quiz',quiz.id]" routerLinkActive="active" >Play</button>
                             </div>
                         </div>
                     </div>

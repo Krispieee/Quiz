@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthServiceService {
-  url = "http://192.168.1.2:4200/";
+  url = "http://192.168.1.29:4200/";
 
   constructor(public _http:HttpClient) {
     
@@ -15,30 +15,31 @@ export class AuthServiceService {
 
   
   get currentUser(){
-    return jwt_decode(localStorage.getItem("token"))
+    return jwt_decode(sessionStorage.getItem("token"))
   }
 
   login(value){
-    return this._http.post<any>(this.url+'api/login',value);
+    return this._http.post<any>(this.url+'api/profile/login',value);
   }
 
   getToken() {
-    return localStorage.getItem('token')
+    return sessionStorage.getItem('token')
   }
 
   isloggedIn() {
-    let token = localStorage.getItem("token")
+    let token = sessionStorage.getItem("token")
     if (!token){
       return false
     }
     return !this.isExpired()
   }
   isExpired(){
-    let expTime = new Date(0).setUTCSeconds(this.currentUser['exp'])
-    if (expTime > new Date().valueOf()){
-      return false
-    }
-    return true
+    // let expTime = new Date(0).setUTCSeconds(this.currentUser['exp'])
+    // if (expTime > new Date().valueOf()){
+    //   return false
+    // }
+    // return true
+    return false
   }
   
 }

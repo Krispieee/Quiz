@@ -26,9 +26,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-player style="height: 30rem;overflow-y: scroll ;">
               <tr>
-                <td>{{player.name}}</td>
-                <td>{{player.score}}</td>
-                <td>{{player.no_of_ques}}</td>
+                <td *ngFor="let col of columns">{{player[col.field]}}</td>
               </tr>
             </ng-template>
           </p-table>

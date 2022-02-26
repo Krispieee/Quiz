@@ -46,6 +46,7 @@ export class QuizSettingsComponent implements OnInit {
     this._activatedRouter.paramMap.subscribe((params: ParamMap) => {
       this.quizId = params.get('quiz_id')
       if (this.quizId) {
+        this.showLoader = true;
         this._creationService.getDetailedQuiz(this.quizId).subscribe(res => {
           console.log(res)
           this.questions = res['questions']
@@ -53,9 +54,10 @@ export class QuizSettingsComponent implements OnInit {
           this.canSetTitle=true
           this.setQuestion(this.currentQuestion)
           console.log(this.questionForm)
+          this.showLoader =  false;
         },
           err => {
-
+            this.showLoader =  false;
           })
       }
     })
@@ -116,6 +118,7 @@ export class QuizSettingsComponent implements OnInit {
   onSubmit() {
     console.log("current question number"+this.currentQuestion)
     this.enableRmBtn=false
+    this.optionsFull = false;
     console.log(this.currentQuestion , this.questions.length)
     let questionDataFromForm = this.getQuestionData()
     if(this.currentQuestion < this.questions.length){
@@ -168,7 +171,7 @@ export class QuizSettingsComponent implements OnInit {
       title : this.title,
       questions: this.questions,
       password: password,
-      creater_email: localStorage.getItem('creater_email')
+      creater_email: sessionStorage.getItem('creater_email')
     }
     console.log(data)
     
@@ -329,7 +332,7 @@ export class QuizSettingsComponent implements OnInit {
         currentQuestionData["answers"][index]["answer"] = data["answers"][index]
       }
       for (let index = data["answers"].length; index < currentQuestionData["answers"].length; index++) {
-        currentQuestionData["answers"][index]["answer"] = ""
+        currentQuestionData["answers"][index]["id"] = ""
       }
     } else {
       for (let index = 0; index < currentQuestionData["answers"].length; index++) {

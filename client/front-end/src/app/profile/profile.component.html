@@ -2,11 +2,12 @@
     <div class="bg-dark px-5 py-2">
         <div class="d-flex justify-content-between">
             <div class="text-light d-flex align-items-center">
-                Hey&nbsp;
+                <div class="col-md-7">
+                    <img [src]="profilePic" class="rounded-circle profile_image" alt="profile">
+                </div>
                 <div class="brand align-self-center bg-night p-1 rounded" >
                     <span class="text-capitalize">{{username}}</span>
                 </div>
-                &nbsp;!!!
             </div>
             <div class="align-self-center">
                 <button pButton class="p-button-raised p-button-secondary" [routerLink]="['/pre-creation']" routerLinkActive="active" label="Create"></button>
@@ -36,6 +37,9 @@
                                 
                                 <button class="p-button-rounded p-button-raised" pButton [routerLink]="['/results',quiz.id]" routerLinkActive="active" icon="pi pi-eye">
                                 </button>
+
+                                <button class="p-button-rounded p-button-raised p-button-danger" pButton (click)="confirmDelete($event, quiz.id)" icon="pi pi-trash">
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -45,3 +49,5 @@
     </section>
 </div>
 <p-toast></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<app-loader *ngIf="showLoader"></app-loader>

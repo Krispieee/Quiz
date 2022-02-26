@@ -1,17 +1,17 @@
 <ul *ngIf="pager.pages && pager.pages.length" class="d-flex" style="list-style-type: none;">
     <li class="">
-        <button [disabled]="pager.currentPage === 1" class="k-button-rounded k-button-raised" (click)="setPage(1)" style="background-color: #8590aa;">
+        <button type="button" [disabled]="pager.currentPage === 1" class="k-button-rounded k-button-raised" (click)="setPage(1)" style="background-color: #8590aa;">
             First
         </button>
     </li>
     <li  class="page-item previous-item">
-        <button [disabled]="pager.currentPage === 1" class="k-button-rounded k-button-raised" (click)="setPage(pager.currentPage - 1)"  style="background-color: #8590aa;">
+        <button type="button" [disabled]="pager.currentPage === 1" class="k-button-rounded k-button-raised" (click)="setPage(pager.currentPage - 1)"  style="background-color: #8590aa;">
             <i class="pi pi-chevron-left"></i>
         </button>
     </li>
     <li *ngFor="let page of pager.pages"  class="">
-        <button class="k-button-rounded k-button-raised"  *ngIf="pager.currentPage !== page" (click)="setPage(page)"  style="background-color: #8590aa;">{{page}}</button>
-        <button class="k-button-rounded k-button-raised" *ngIf="pager.currentPage === page" (click)="setPage(page)"  style="transform: translateY(-.5rem);background-color: #8590aa;">{{page}}</button>
+        <button type="button" class="k-button-rounded k-button-raised"  *ngIf="pager.currentPage !== page" (click)="setPage(page)"  style="background-color: #8590aa;">{{page}}</button>
+        <button type="button" class="k-button-rounded k-button-raised" *ngIf="pager.currentPage === page" (click)="setPage(page)"  style="transform: translateY(-.5rem);background-color: #8590aa;">{{page}}</button>
     </li>
     <li  class="page-item next-item">
         <button type="button" [disabled]="pager.currentPage === pager.totalPages" (click)="setPage(pager.currentPage + 1)" class="k-button-rounded k-button-raised" style="background-color: #8590aa;">
@@ -19,6 +19,6 @@
         </button>
     </li>
     <li  class="page-item last-item">
-        <button [disabled]="pager.currentPage === pager.totalPages" (click)="setPage(pager.totalPages)" class="k-button-rounded k-button-raised" style="background-color: #8590aa;">Last</button>
+        <button type="button" [disabled]="pager.currentPage === pager.totalPages" (click)="setPage(pager.totalPages)" class="k-button-rounded k-button-raised" style="background-color: #8590aa;">Last</button>
     </li>
 </ul>

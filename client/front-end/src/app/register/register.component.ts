@@ -17,6 +17,9 @@ export class RegisterComponent implements OnInit {
   emails=[]
   registerForm : FormGroup = this._formBuilder.group({})
   showLoader:boolean;
+  profilePicPath:string = "../../assets/images/default.jpg";
+  profilePicture:File;
+
   constructor(public _formBuilder:FormBuilder,public _creationService:CreationService,public _router:Router) { }
   ngOnInit(): void {
     this.registerForm = this._formBuilder.group({
@@ -55,7 +58,17 @@ export class RegisterComponent implements OnInit {
   onSubmit(){
     console.log(this.registerForm.value)
     this.showLoader = true
-    this._creationService.CreateUser(this.registerForm.value).subscribe(res=>{
+    let formData = new FormData();
+    let formValue = this.registerForm.value
+    let properties:string[] = Object.getOwnPropertyNames(formValue);
+    properties.forEach(element => {
+      console.log(element)
+      formData.append(element, formValue[element])
+    });
+    formData.append("profilePic", this.profilePicture)
+    console.log(this.profilePicPath)
+    formValue["profilePic"]=this.profilePicture
+    this._creationService.CreateUser(formData).subscribe(res=>{
       this.showLoader = true
       this._router.navigate(['/login'])      
     })
@@ -65,5 +78,13 @@ export class RegisterComponent implements OnInit {
   }
   togglePasswordVisibility(){
     this.passwordVisible = !this.passwordVisible
+  }
+  imageUpload(event){
+    console.log(event)
+    let files:any[] = event.files
+    this.profilePicPath = files[0].objectURL
+    this.profilePicture = files[0]
+    
+    
   }
 }

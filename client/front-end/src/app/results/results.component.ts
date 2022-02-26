@@ -12,7 +12,7 @@ import 'file-saver';
 export class ResultsComponent implements OnInit {
   id:string
   players:[]
-  columns:{}[] = [{"field":"name","col":"Player"},{"field":"score","col":"Score"},{"field":"no_of_ques","col":"Out of"}]
+  columns:any[] = [{"field":"player","col":"Player"},{"field":"score","col":"Score"},{"field":"numberOfQuestions","col":"Out of"}]
 
   constructor(public _activatedRoute:ActivatedRoute,public _creationService:CreationService,public _auth:AuthServiceService) { }
 
@@ -21,7 +21,7 @@ export class ResultsComponent implements OnInit {
       this.id=paramap.get('quiz_id')
       this._creationService.getResults(this.id).subscribe(res=>{
         console.log(res)
-        this.players=res['data']
+        this.players=res
       })
     })
   }

@@ -24,8 +24,8 @@ export class LoginPageComponent implements OnInit {
     this._authService.login(value).subscribe((res)=>{
       console.log(res)
       this.showLoader = false
-      localStorage.setItem('token',res.access_token)
-      localStorage.setItem('creater_email',res.creater_email)
+      sessionStorage.setItem('token',res.access_token)
+      sessionStorage.setItem('creater_email',res.creater_email)
       this._router.navigate(['/profile'])
       this._messages.add({severity:"success",summary:"Logged In Successfully"})
     },

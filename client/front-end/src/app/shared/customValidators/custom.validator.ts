@@ -52,10 +52,12 @@ export class CustomValidators{
         return (control:AbstractControl) : Observable<ValidationErrors> =>{
             let email:string = control.value
             return service.GetEmails().pipe(map((response:string[])=>{
+                console.log(response)
                 if(response.includes(email.toLowerCase())){
-                    console.log(response)
                     return {'EmailTaken':true}
                 }
+            }, err=> {
+                return {'EmailTaken':true}
             }))
         }
     }

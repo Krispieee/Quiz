@@ -15,7 +15,7 @@ export class LobbyComponent implements OnInit {
 
   ngOnInit(): void {
     this._creationService.GetQuizDetails().subscribe( res =>{
-      this.details=res["details"]
+      this.details=res;
       console.log(this.details)
     } )
   }

@@ -22,8 +22,8 @@ export class ForgetPasswordComponent implements OnInit {
     this._activatedRoute.paramMap.subscribe((params:ParamMap)=>{
       let email = params.get('email')
       let token = params.get('token')
-      localStorage.setItem('token',token)
-      localStorage.setItem('creater_email',email)  
+      sessionStorage.setItem('token',token)
+      sessionStorage.setItem('creater_email',email)  
     })
   }
   get password(){
@@ -33,7 +33,7 @@ export class ForgetPasswordComponent implements OnInit {
     return this.passwordForm.get('confirm_password') 
   }
   onSubmit(){
-    this.passwordForm.value["email"]=localStorage.getItem('creater_email')
+    this.passwordForm.value["email"]=sessionStorage.getItem('creater_email')
     this.showLoader = true
     this._creationService.updatePassword(this.passwordForm.value).subscribe(res=>{
       this.showLoader = false

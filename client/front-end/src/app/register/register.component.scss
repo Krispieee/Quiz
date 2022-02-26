@@ -6,3 +6,12 @@
 .p-password-meter{
     width: 100%;
 }
+
+.profile{
+    &_image{
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        text-align: center;
+    }
+}

@@ -25,6 +25,11 @@
                             <ng-content select=".error"></ng-content>
                         </small>
                     </div>
+                    <div class="d-flex justify-content-center" >
+                        <small class="text-danger">
+                            <ng-content select=".parent-error"></ng-content>
+                        </small>
+                    </div>
                 </div>
 
                 <div class="form-group float-right" *ngIf="!hideImFine">

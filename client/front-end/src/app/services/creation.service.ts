@@ -9,31 +9,31 @@ import { JsonPipe } from '@angular/common';
 })
 export class CreationService {
 
-  url = "http://192.168.1.2:4200/";
+  url = "http://192.168.1.29:4200/";
   constructor(public _http:HttpClient) { }
 
   postQuestionSet(questionSet){
     console.log('dataSending..')
-    return this._http.post<any>(this.url+'api/post-questions',questionSet).pipe((res)=>{
+    return this._http.post<any>(this.url+'api/quiz',questionSet).pipe((res)=>{
       return res
     })
   }
   
   GetQuizDetails(){
-    return this._http.get<any>(this.url+'api/lobby-details')
+    return this._http.get<any>(this.url+'api/quiz/lobby-details')
   }
   GetQuiz(id){
     return this._http.get<any>(this.url+'api/quiz/'+id)
   }
   GetEmails(){
-    return this._http.get<any>(this.url+'api/Emails').pipe(
+    return this._http.get<any>(this.url+'api/profile/emails').pipe(
       map(res=>{
         return res['emails']
       })
     )
   }
   CreateUser(value){
-    return this._http.post<any>(this.url+'api/create-user',value)
+    return this._http.post<any>(this.url+'api/profile/',value)
   }
   sendEmail(value){
     return this._http.post<any>(this.url+'api/recovery',value)
@@ -42,24 +42,24 @@ export class CreationService {
     return this._http.post<any>(this.url+'api/update-password',value)
   }
   getProfileDetails(){
-    return this._http.get<any>(this.url+'api/getProfile/'+localStorage.getItem('creater_email'))
+    return this._http.post<any>(this.url+'api/profile/details', { user: { email: sessionStorage.getItem('creater_email')}})
   }
   submitQuiz(value){
-    return this._http.post<any>(this.url+'api/submit-quiz',value)
+    return this._http.post<any>(this.url+'api/quiz/submit-quiz',value)
   }
   giveFeedback(value){
     return this._http.post<any>(this.url+'api/feedback',value)
   }
   getResults(id){
-    return this._http.get<any>(this.url+'api/results/'+id)
+    return this._http.get<any>(this.url+'api/quiz/results/'+id)
   }
   downloadReport(id){
     return this._http.get<any>(this.url+'api/results/'+id)
   }
   getDetailedQuiz(id){
-    return this._http.get<any>(this.url+'api/detailedQuiz/'+id)
+    return this._http.get<any>(this.url+'api/quiz/detailedQuiz/'+id)
     .pipe(map(res=>{
-      res = res['message']
+      // res = res['message']
       res['questions'].forEach(element => {
         element['toBeDeleted'] = false
       });
@@ -74,6 +74,10 @@ export class CreationService {
      } catch(e) {
        data = data
      }
-    return this._http.post<any>(this.url+'api/updateQuiz',data)
+    return this._http.post<any>(this.url+'api/quiz/updateQuiz',data)
+  }
+
+  deleteQuiz(data){
+    return this._http.post<any>(this.url+"api/quiz/deleteQuiz", data);
   }
 }
